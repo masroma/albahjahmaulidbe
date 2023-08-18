@@ -15,10 +15,11 @@ class TransaksiController extends Controller
 {
     public function index()
     {
+
+
         abort_if(Gate::denies('transaksi_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transaksis = Transaksi::all();
-
+        $transaksis = Transaksi::with('datapeserta')->get();
         return view('admin.transaksis.index', compact('transaksis'));
     }
 

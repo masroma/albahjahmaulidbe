@@ -24,6 +24,7 @@ class Transaksi extends Model
         'peserta',
         'amount',
         'status',
+        'qty',
         'snap_token',
         'created_at',
         'updated_at',
@@ -33,5 +34,15 @@ class Transaksi extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    /**
+     * Get the user that owns the Transaksi
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function datapeserta()
+    {
+        return $this->belongsTo(Pesertum::class, 'peserta', 'id');
     }
 }

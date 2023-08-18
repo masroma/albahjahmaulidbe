@@ -32,7 +32,13 @@
                             {{ trans('cruds.transaksi.fields.peserta') }}
                         </th>
                         <th>
+                            {{ trans('cruds.transaksi.fields.whatsapp') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.transaksi.fields.amount') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transaksi.fields.qty') }}
                         </th>
                         <th>
                             {{ trans('cruds.transaksi.fields.status') }}
@@ -58,13 +64,26 @@
                                 {{ $transaksi->invoice ?? '' }}
                             </td>
                             <td>
-                                {{ $transaksi->peserta ?? '' }}
+                                {{ $transaksi->datapeserta ? $transaksi->datapeserta->nama : '' }}
+                            </td>
+                            <td>
+                                {{ $transaksi->datapeserta ? $transaksi->datapeserta->whatsapp : '' }}
                             </td>
                             <td>
                                 {{ $transaksi->amount ?? '' }}
                             </td>
                             <td>
-                                {{ $transaksi->status ?? '' }}
+                                {{ $transaksi->qty ?? '' }}
+                            </td>
+                            <td>
+                                @if($transaksi->status == 'success')
+                                    <div class="badge badge-success">{{$transaksi->status}}</div>
+                                @elseif($transaksi->status == 'pending')
+                                <div class="badge badge-warning">{{$transaksi->status}}</div>
+                               @else
+                               <div class="badge badge-danger">{{$transaksi->status}}</div>
+                               @endif
+
                             </td>
                             <td>
                                 {{ $transaksi->snap_token ?? '' }}
@@ -148,7 +167,7 @@
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
-  
+
 })
 
 </script>
